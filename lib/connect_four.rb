@@ -1,29 +1,27 @@
 # frozen_string_literal: true
 
+require 'colorize'
 require_relative '../lib/player'
 require_relative '../lib/computer'
-require 'colorize'
 
 # board class for connect four
 class Board
-  attr_accessor :row_one, :row_two, :row_three, :row_four, :board
+  attr_accessor :board
 
   def initialize(sqr = '⬛')
-    @row_one = [sqr, sqr, sqr, sqr]
-    @row_two = [sqr, sqr, sqr, sqr]
-    @row_three = [sqr, sqr, sqr, sqr]
-    @row_four = [sqr, sqr, sqr, sqr]
+    @board = { 1 => [sqr, sqr, sqr, sqr],
+               2 => [sqr, sqr, sqr, sqr],
+               3 => [sqr, sqr, sqr, sqr],
+               4 => [sqr, sqr, sqr, sqr] }
     @turn = 0
-    @board = [row_one, row_two, row_three, row_four]
     @computer = Computer.new('Terminator')
   end
 
   def display
-    board.each { |row| puts row.join }
+    board.each_value { |row| puts row.join }
   end
 
-
+  def win_conditions
+    board.each_value { |row| return true if row.all?('X') }
+  end
 end
-
-game = Board.new
-game.display
