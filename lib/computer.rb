@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-# player class for connect four
-class Player
+# the computer in connect four
+class Computer
   attr_accessor :token
   
-  def initialize(name, token = '⬛'.colorize(:blue))
+  def initialize(name, token = '⬛'.colorize(:red))
     @name = name
     @token = token
   end
