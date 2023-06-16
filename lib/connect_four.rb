@@ -6,15 +6,16 @@ require_relative '../lib/computer'
 
 # board class for connect four
 class Board
-  attr_accessor :board
+  attr_accessor :board, :player, :computer
 
-  def initialize(sqr = '⬛')
+  def initialize(name, sqr = '⬛')
+    @computer = Computer.new('Terminator')
+    @player = Player.new(name)
     @board = { 1 => [sqr, sqr, sqr, sqr],
                2 => [sqr, sqr, sqr, sqr],
                3 => [sqr, sqr, sqr, sqr],
                4 => [sqr, sqr, sqr, sqr] }
     @turn = 0
-    @computer = Computer.new('Terminator')
   end
 
   def display
@@ -22,6 +23,13 @@ class Board
   end
 
   def win_conditions
-    board.each_value { |row| return true if row.all?('X') }
+    board.each_value do |row|
+      return true if row.all?(player.token) || row.all?(computer.token)
+
+      false
+    end
   end
 end
+
+game = Board.new('Sharpeim')
+game.display
