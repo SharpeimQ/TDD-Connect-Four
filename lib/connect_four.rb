@@ -22,10 +22,11 @@ class Board
     board.each_value { |row| puts row.join }
   end
 
+  # methods for checking win condition
   def win_conditions
-    return true if horizontal_win?
-    return true if vertical_win?
-    return true if diagonal_win?
+    horizontal_win?
+    vertical_win?
+    diagonal_win?
   end
 
   def horizontal_win?
@@ -36,10 +37,23 @@ class Board
   end
 
   def vertical_win?
-    3.times do |col|
+    4.times do |col|
       column = board.values.map { |row| row[col] }
       return true if column.all?(player.token) || column.all?(computer.token)
     end
+    false
+  end
+
+  def diagonal_win?
+    diag = []
+    diag_two = []
+    board.size.times do |i|
+      diag << board[i + 1][i]
+      diag_two << board[i + 1][board.size - 1 - i]
+    end
+    return true if diag.all?(player.token) || diag.all?(computer.token)
+    return true if diag_two.all?(player.token) || diag_two.all?(computer.token)
+
     false
   end
 end
