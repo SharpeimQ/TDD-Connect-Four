@@ -13,8 +13,11 @@ describe Board do
 
   describe 'horizontal_win?' do
     context 'when a horizontal win condition is met' do
-      it 'returns true' do
+      before do
         game.board[1] = [player.token, player.token, player.token, player.token]
+      end
+
+      it 'returns true' do
         expect(game.horizontal_win?).to be(true)
       end
     end
@@ -28,12 +31,14 @@ describe Board do
 
   describe 'vertical_win?' do
     context 'when vertical win condition is met' do
-      it 'returns true' do
+      before do
         game.board[1][0] = player.token
         game.board[2][0] = player.token
         game.board[3][0] = player.token
         game.board[4][0] = player.token
+      end
 
+      it 'returns true' do
         expect(game.vertical_win?).to be(true)
       end
     end
@@ -43,7 +48,6 @@ describe Board do
         expect(game.vertical_win?).to_not be(true)
       end
     end
-
   end
 
   describe 'diagonal_win?' do
@@ -53,17 +57,20 @@ describe Board do
         game.board[2][1] = player.token
         game.board[3][2] = player.token
         game.board[4][3] = player.token
-
         expect(game.diagonal_win?).to be(true)
       end
     end
 
     context 'when diagonal win condition is met for computer' do
-      it 'returns true' do
+      before do
         game.board[1][3] = computer.token
         game.board[2][2] = computer.token
         game.board[3][1] = computer.token
         game.board[4][0] = computer.token
+      end
+
+      it 'returns true' do
+        expect(game.diagonal_win?).to be(true)
       end
     end
 

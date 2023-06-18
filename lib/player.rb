@@ -4,10 +4,26 @@ require 'colorize'
 
 # player class for connect four
 class Player
-  attr_accessor :token
+  attr_accessor :token, :name
 
   def initialize(name, token = '⬛'.colorize(:blue))
-    @name = name
+    @name = name_checker(name)
     @token = token
   end
+
+  def name_checker(name)
+    return name if valid_name?(name)
+
+    loop do
+      puts 'Invalid name. Try again:'
+      name = gets.chomp
+      return name if valid_name?(name)
+    end
+  end
+
+  def valid_name?(name)
+    name.match(/^[A-Za-z]+$/) && name.length <= 10
+  end
 end
+
+Player.new('HOW DOG SDF')

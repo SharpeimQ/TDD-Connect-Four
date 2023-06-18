@@ -31,7 +31,7 @@ class Board
 
   def horizontal_win?
     board.each_value do |row|
-      return true if row.all?(player.token) || row.all?(computer.token)
+      return true if horizontal_check(row)
     end
     false
   end
@@ -39,7 +39,7 @@ class Board
   def vertical_win?
     4.times do |col|
       column = board.values.map { |row| row[col] }
-      return true if column.all?(player.token) || column.all?(computer.token)
+      return true if horizontal_check(column)
     end
     false
   end
@@ -51,10 +51,14 @@ class Board
       diag << board[i + 1][i]
       diag_two << board[i + 1][board.size - 1 - i]
     end
-    return true if diag.all?(player.token) || diag.all?(computer.token)
-    return true if diag_two.all?(player.token) || diag_two.all?(computer.token)
+    return true if horizontal_check(diag)
+    return true if horizontal_check(diag_two)
 
     false
+  end
+
+  def horizontal_check(array)
+    array.all?(player.token) || array.all?(computer.token)
   end
 end
 
