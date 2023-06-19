@@ -11,6 +11,7 @@ class Player
     @token = token
   end
 
+  # methods for verifying names
   def name_checker(name)
     return name if valid_name?(name)
 
@@ -25,6 +26,7 @@ class Player
     name.match(/^[A-Za-z]+$/) && name.length <= 10
   end
 
+  # methods for verifying moves
   def make_move
     move = gets.chomp.to_i
     move_check(move)

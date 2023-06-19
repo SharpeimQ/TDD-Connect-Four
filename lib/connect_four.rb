@@ -64,3 +64,5 @@ end
 
 game = Board.new('Sharpeim')
 game.display
+puts game.player.name
+puts game.computer.name
