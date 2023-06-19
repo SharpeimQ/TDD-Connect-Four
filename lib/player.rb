@@ -24,6 +24,22 @@ class Player
   def valid_name?(name)
     name.match(/^[A-Za-z]+$/) && name.length <= 10
   end
-end
 
-Player.new('HOW DOG SDF')
+  def make_move
+    move = gets.chomp.to_i
+    move_check(move)
+  end
+
+  def move_checker(move)
+    if move.between?(1, 4)
+      move
+    else
+      loop do
+        puts 'Invalid move. Try again:'
+        move = gets.chomp.to_i
+        return move if move.between?(1, 4)
+      end
+    end
+    move
+  end
+end
