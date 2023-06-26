@@ -82,11 +82,22 @@ describe Board do
   end
 
   describe 'update_board' do
-    context 'when a valid move is made' do
+    context 'when a player makes a move' do
       column = 3
 
       it 'updates the board with player token' do
         expect { game.update_board(column, player.token) }.to change { game.board[4][2] }.to(player.token)
+      end
+    end
+
+    context 'when the computer makes a move' do
+      before do
+        game.board[4][2] = player.token
+      end
+
+      column = 3
+      it 'updates the board with computer token' do
+        expect { game.update_board(column, computer.token) }.to change { game.board[3][2] }.to(computer.token)
       end
     end
   end

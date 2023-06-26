@@ -76,5 +76,9 @@ end
 
 game = Board.new('Sharpeim')
 game.display
-puts game.update_board(3, game.player.token)
+puts
+game.update_board(3, game.player.token)
+game.display
+puts
+game.update_board(3, game.computer.token)
 game.display
