@@ -7,7 +7,7 @@ require_relative '../lib/player'
 require_relative '../lib/computer'
 
 describe Board do
-  subject(:game) { described_class.new(Player) }
+  subject(:game) { described_class.new('Player') }
   let(:player) { instance_double(Player, token: '⬛'.colorize(:blue)) }
   let(:computer) { instance_double(Computer, token: '⬛'.colorize(:red)) }
 
@@ -77,6 +77,16 @@ describe Board do
     context 'when diagonal win condition is not met' do
       it 'returns false' do
         expect(game.diagonal_win?).to_not be(true)
+      end
+    end
+  end
+
+  describe 'update_board' do
+    context 'when a valid move is made' do
+      column = 3
+
+      it 'updates the board with player token' do
+        expect { game.update_board(column, player.token) }.to change { game.board[4][2] }.to(player.token)
       end
     end
   end

@@ -6,7 +6,7 @@ require_relative '../lib/computer'
 
 # board class for connect four
 class Board
-  attr_accessor :board, :player, :computer
+  attr_accessor :board, :player, :computer, :sqr
 
   def initialize(name, sqr = '⬛')
     @computer = Computer.new('Terminator')
@@ -15,6 +15,7 @@ class Board
                2 => [sqr, sqr, sqr, sqr],
                3 => [sqr, sqr, sqr, sqr],
                4 => [sqr, sqr, sqr, sqr] }
+    @sqr = sqr
     @turn = 0
   end
 
@@ -60,9 +61,20 @@ class Board
   def horizontal_check(array)
     array.all?(player.token) || array.all?(computer.token)
   end
+
+  # methods for updating the board
+  def update_board(column, token)
+    size = board.size
+    4.times do |i|
+      if board[size - i][column - 1] == sqr
+        board[size - i][column - 1] = token
+        break
+      end
+    end
+  end
 end
 
 game = Board.new('Sharpeim')
 game.display
-puts game.player.name
-puts game.computer.name
+puts game.update_board(3, game.player.token)
+game.display
