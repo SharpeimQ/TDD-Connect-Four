@@ -101,4 +101,35 @@ describe Board do
       end
     end
   end
+
+  describe 'column_checker' do
+    column = 1
+
+    context 'checks full column' do
+      before do
+        game.board[1][0] = player.token
+        game.board[2][0] = computer.token
+        game.board[3][0] = computer.token
+        game.board[4][0] = computer.token
+      end
+
+      it 'returns true when computer inputs into full column' do
+        result = game.column_checker(column)
+        expect(result).to be(true)
+      end
+    end
+
+    context 'checks empty column' do
+      before do
+        game.board[2][0] = computer.token
+        game.board[3][0] = computer.token
+        game.board[4][0] = computer.token
+      end
+
+      it 'returns false when player inputs into an open column' do
+        result = game.column_checker(column)
+        expect(result).to be(false)
+      end
+    end
+  end
 end

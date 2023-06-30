@@ -72,6 +72,11 @@ class Board
       end
     end
   end
+
+  # method for checking if a column is full
+  def column_checker(column)
+    board[1][column - 1] != sqr
+  end
 end
 
 game = Board.new('Sharpeim')
