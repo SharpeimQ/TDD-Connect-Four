@@ -29,7 +29,7 @@ class Player
   # methods for verifying moves
   def make_move
     move = gets.chomp.to_i
-    move_check(move)
+    move_checker(move)
   end
 
   def move_checker(move)

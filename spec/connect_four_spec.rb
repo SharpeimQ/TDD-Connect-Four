@@ -115,7 +115,7 @@ describe Board do
 
       it 'returns true when computer inputs into full column' do
         result = game.column_checker(column)
-        expect(result).to be(true)
+        expect(result).to be(false)
       end
     end
 
@@ -128,7 +128,7 @@ describe Board do
 
       it 'returns false when player inputs into an open column' do
         result = game.column_checker(column)
-        expect(result).to be(false)
+        expect(result).to be(true)
       end
     end
   end

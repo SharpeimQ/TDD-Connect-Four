@@ -17,6 +17,7 @@ class Board
                4 => [sqr, sqr, sqr, sqr] }
     @sqr = sqr
     @turn = 0
+    game
   end
 
   def display
@@ -25,9 +26,7 @@ class Board
 
   # methods for checking win condition
   def win_conditions
-    horizontal_win?
-    vertical_win?
-    diagonal_win?
+    return true if horizontal_win? || vertical_win? || diagonal_win?
   end
 
   def horizontal_win?
@@ -75,15 +74,26 @@ class Board
 
   # method for checking if a column is full
   def column_checker(column)
-    board[1][column - 1] != sqr
+    board[1][column - 1] == sqr
+  end
+
+  def game
+    puts 'Welcome to Connect Four!'
+    display
+    loop do
+      puts 'Make your move!'
+      if  
+        move = player.make_move
+      update(move)
+      break if win_conditions
+    end
+  end
+
+  def update(move)
+    update_board(move, player.token)
+    display
+    puts
   end
 end
 
-game = Board.new('Sharpeim')
-game.display
-puts
-game.update_board(3, game.player.token)
-game.display
-puts
-game.update_board(3, game.computer.token)
-game.display
+Board.new('Sharpeim')
