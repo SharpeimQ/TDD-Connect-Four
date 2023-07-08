@@ -26,7 +26,7 @@ class Board
 
   # methods for checking win condition
   def win_conditions
-    return true if horizontal_win? || vertical_win? || diagonal_win?
+    return true if horizontal_win? || vertical_win? || diagonal_win? || tie?
   end
 
   def horizontal_win?
@@ -61,6 +61,10 @@ class Board
     array.all?(player.token) || array.all?(computer.token)
   end
 
+  def tie?
+    board[1].none? { |e| e == sqr }
+  end
+
   # methods for updating the board
   def update_board(column, token)
     size = board.size
@@ -81,18 +85,29 @@ class Board
     puts 'Welcome to Connect Four!'
     display
     loop do
-      puts 'Make your move!'
-      if  
-        move = player.make_move
-      update(move)
+      player_move
+      computer_move
+      update
       break if win_conditions
     end
   end
 
-  def update(move)
-    update_board(move, player.token)
+  def update
     display
     puts
+  end
+
+  def player_move
+    puts 'Make your move!'
+    move = player.make_move
+    move = player.make_move until column_checker(move)
+    update_board(move, player.token)
+  end
+
+  def computer_move
+    move = computer.generate_move
+    move = computer.generate_move until column_checker(move)
+    update_board(move, computer.token)
   end
 end
 
